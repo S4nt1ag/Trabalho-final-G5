@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, TouchableOpacity, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Text, ScrollView, ActivityIndicator } from 'react-native';
 import { AxiosInstance } from '../api/AxiosInstance';
 import { DataContext } from '../context/DataContext';
 import { useContext } from 'react';
