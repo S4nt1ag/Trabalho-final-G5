@@ -112,17 +112,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
+    touchableLivro: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+
     cardBook: {
         alignItems: 'center',
         padding: 20,
         width: "80%",
         borderRadius: 5,
+        justifyContent: 'center',
     },
 
     imagemLivro: {
         width: 140,
         height: 200,
         borderRadius: 5,
+        margin: 'auto',
     },
 
     nomeLivro: {
