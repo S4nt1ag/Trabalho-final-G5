@@ -5,7 +5,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { DataProvider } from './src/context/DataContext';
 import LivroScreen from './src/screen/LivroScreen';
-import { MaterialIcons } from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
 
@@ -25,10 +24,7 @@ const App = () => {
             }}>
           <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
           <Stack.Screen options={{
-            headerLeft: null,
-            headerRight: () => (
-                <MaterialIcons name="logout" size={24} color="#fff" style={{ paddingRight: 15 }} />
-            )
+            headerLeft: null
           }}
             name="Livraria" component={Tabs} />
           <Stack.Screen name="Livro" component={LivroScreen} />
