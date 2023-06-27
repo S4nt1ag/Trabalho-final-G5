@@ -34,7 +34,7 @@ export default function Tabs() {
             />
             <Tab.Screen
                 name="Editoras"
-                component={Home}
+                component={AllEditorasScreen}
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="bookshelf" size={size} color={color} />
