@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import Home from '../screen/Home';
+import { Favoritos } from '../screen/Favoritos';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,13 +34,13 @@ export default function Tabs() {
                     component={Home}
                     options={{
                         tabBarIcon: ({ color, size }) => (
-                            <MaterialIcons name="search" color={color} size={size} />
+                            <MaterialCommunityIcons name="bookshelf" size={size} color={color} />
                         )
                     }}
                 />
                 <Tab.Screen
                     name="Favoritos"
-                    component={Home}
+                    component={Favoritos}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="heart" color={color} size={size} />

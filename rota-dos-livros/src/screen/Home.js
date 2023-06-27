@@ -1,19 +1,20 @@
 import { View, Text, StyleSheet } from "react-native"
-// import EditorasContainer from "../components/EditorasContainer"
 import LivrosContainer from "../components/LivrosContainer"
 import { Card } from '@rneui/themed';
 import { ScrollView } from "react-native"
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+import EditorasContainer from '../components/EditorasContainer'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function Home() {
     return (
-        <ScrollView style={{backgroundColor: '#C2DEDC'}} showsVerticalScrollIndicator={false}>
+        <ScrollView style={{ backgroundColor: '#C2DEDC' }} showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
                 <EditorasContainer></EditorasContainer>
 
                 <View style={styles.wrapperTitle}>
-                    <MaterialCommunityIcons name="bookshelf" size={20} color="#116A7B" />
+                    <FontAwesome5 name="book" size={20} color="#116A7B" />
                     <Text style={styles.title}>Livros</Text></View>
 
                 <LivrosContainer></LivrosContainer>
