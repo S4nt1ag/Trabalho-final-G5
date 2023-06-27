@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import Home from '../screen/Home';
+import AllEditorasScreen from '../screen/AllEditorasScreen'
 import { Favoritos } from '../screen/Favoritos';
 
 const Tab = createBottomTabNavigator();
@@ -31,7 +32,7 @@ export default function Tabs() {
                 />
                 <Tab.Screen
                     name="Editoras"
-                    component={Home}
+                    component={AllEditorasScreen}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="bookshelf" size={size} color={color} />
