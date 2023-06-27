@@ -1,4 +1,4 @@
-import { View, FlatList, StyleSheet, Image, TouchableOpacity, Text } from "react-native";
+import { View, FlatList, StyleSheet, Image, TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import { useState, useEffect } from "react";
 import { AxiosInstance } from "../api/AxiosInstance";
 import { DataContext } from '../context/DataContext';
@@ -8,33 +8,44 @@ const AllEditorasScreen = ({ navigation }) => {
     const { dadosUsuario } = useContext(DataContext);
 
     const [dataEditora, setDataEditora] = useState();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         getEditoras()
     }, [])
 
     const getEditoras = async () => {
-        await AxiosInstance.get("/editoras",
-            {
+        try {
+            const response = await AxiosInstance.get("/editoras", {
                 headers: { "Authorization": `Bearer ${dadosUsuario?.token}` }
-            }).then(result => {
-                setDataEditora(result.data)
-            }).catch(error => {
-                console.log("Ocorreu um erro ao recuperar os dados: " + error)
-            })
+            });
+            setDataEditora(response.data);
+            setIsLoading(false);
+        } catch (error) {
+            console.log("Ocorreu um erro ao recuperar os dados: " + error);
+            setIsLoading(false);
+        }
     }
 
     const Item = ({ item }) => (
-        <View style={styles.item}>
-            <TouchableOpacity onPress={() => navigation.navigate('Editora', item)}>
+        <TouchableOpacity onPress={() => navigation.navigate('Editora', item)}>
+            <View style={styles.item}>
                 <Image
                     style={styles.imagem}
                     source={{ uri: `data:image/png;base64,${item.img}` }}
                 />
-            </TouchableOpacity>
-            <Text style={styles.nome}>{item.nomeEditora}</Text>
-        </View>
+                <Text style={styles.nome}>{item.nomeEditora}</Text>
+            </View>
+        </TouchableOpacity>
     );
+
+    if (isLoading) {
+        return (
+            <View style={styles.container}>
+                <ActivityIndicator size="large" color="#116A7B" />
+            </View>
+        );
+    }
 
     return (
         <View style={styles.container}>
@@ -97,4 +108,3 @@ const styles = StyleSheet.create({
 })
 
 export default AllEditorasScreen;
-
