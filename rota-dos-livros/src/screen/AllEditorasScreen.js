@@ -1,16 +1,13 @@
 import { View, FlatList, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useState, useEffect } from "react";
 import { AxiosInstance } from "../api/AxiosInstance";
-import { useNavigation } from '@react-navigation/native';
 import { DataContext } from '../context/DataContext';
 import { useContext } from 'react';
 
-export const AllEditorasScreen = () => {
-
-    const [dataEditora, setDataEditora] = useState();
+export const AllEditorasScreen = ({ navigation }) => {
     const { dadosUsuario } = useContext(DataContext);
 
-    const navigation = useNavigation();
+    const [dataEditora, setDataEditora] = useState();
 
     useEffect(() => {
         getEditoras()
@@ -76,3 +73,4 @@ const styles = StyleSheet.create({
         gap: 30,
     },
 })
+

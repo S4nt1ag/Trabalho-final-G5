@@ -10,7 +10,10 @@ npm-debug.*
 *.orig.*
 web-build/
 .src/api/
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 # macOS
 .DS_Store
 
