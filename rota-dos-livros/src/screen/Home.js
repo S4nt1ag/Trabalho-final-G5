@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native"
-import EditorasContainer from "../components/EditorasContainer"
+// import EditorasContainer from "../components/EditorasContainer"
 import LivrosContainer from "../components/LivrosContainer"
 import { Card } from '@rneui/themed';
 import { ScrollView } from "react-native"
