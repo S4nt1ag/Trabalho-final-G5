@@ -48,7 +48,7 @@ export const EditoraScreen = ({ navigation, route }) => {
             <View style={styles.containerLivros}>
                 {livro.map((livro) => (
                     <View key={livro.codigoLivro} style={styles.cardBook}>
-                        <TouchableOpacity onPress={() => goToLivros(livro)}>
+                        <TouchableOpacity onPress={() => goToLivros(livro)} style={styles.touchableLivro}>
                             <Image
                                 style={styles.imagemLivro}
                                 source={{ uri: `data:image/png;base64,${livro.imagem}` }}
@@ -112,17 +112,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
+    touchableLivro: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+
     cardBook: {
         alignItems: 'center',
         padding: 20,
         width: "80%",
         borderRadius: 5,
+        justifyContent: 'center',
     },
 
     imagemLivro: {
         width: 140,
         height: 200,
         borderRadius: 5,
+        margin: 'auto',
     },
 
     nomeLivro: {
