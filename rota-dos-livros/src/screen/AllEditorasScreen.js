@@ -37,13 +37,12 @@ const AllEditorasScreen = ({ navigation }) => {
     );
 
     return (
-        <View>
+        <View style={styles.container}>
+            <Text style={styles.titulo}>Editoras</Text>
             <FlatList
-                contentContainerStyle={styles.list}
                 data={dataEditora}
                 renderItem={({ item }) => <Item item={item} />}
                 keyExtractor={item => item.codigoEditora}
-                horizontal={true}
                 showsVerticalScrollIndicator={false}
             />
         </View>
@@ -52,25 +51,48 @@ const AllEditorasScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        padding: 30
+        display: 'flex',
+        justifyContent: 'center',
+        alignContent: 'center',
+        width: '100%',
+        minHeight: '100%',
+        backgroundColor: '#C2DEDC',
+    },
+
+    titulo: {
+        alignSelf: 'center',
+        marginTop: 20,
+        fontWeight: 'bold',
+        fontSize: 30,
+        borderBottomColor: 'black',
+        borderBottomWidth: 1
+    },
+
+    item: {
+        display: 'flex',
+        backgroundColor: '#ECE5C7',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        width: '60%',
+        borderRadius: 20,
+        marginTop: 20,
+        paddingTop: 30,
+        paddingBottom: 30,
     },
 
     imagem: {
-        width: 70,
-        height: 70,
-        borderRadius: 50
+        width: 100,
+        height: 100,
+        borderRadius: 5,
+        backgroundColor: 'white'
     },
 
     nome: {
-        fontSize: 20,
         fontWeight: 'bold',
-        textAlign: 'center'
-    },
-
-    list: {
-        padding: 20,
-        gap: 30,
+        fontSize: 22,
+        marginTop: 10,
+        color: '#242323',
     },
 })
 

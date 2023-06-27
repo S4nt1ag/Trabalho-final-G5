@@ -76,10 +76,9 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
         marginLeft: 'auto',
         width: '60%',
-        boxShadow: '1px 1px 5px #000',
         padding: 10,
         borderRadius: 5,
-        backgroundColor: '#ECE5C7'
+        backgroundColor: '#ECE5C7',
     },
 
     logoEditora: {

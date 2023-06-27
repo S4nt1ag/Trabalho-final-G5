@@ -22,7 +22,7 @@ const App = () => {
               headerTintColor: "#fff"
             }}>
           <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
-          <Stack.Screen options={{headerLeft: null}}name="Livraria" component={Tabs} />
+          <Stack.Screen options={{headerLeft: null}} name="Livraria" component={Tabs} />
           <Stack.Screen name="Livro" component={LivroScreen} />
           <Stack.Screen name="Editora" component={EditoraScreen} />
         </Stack.Navigator>
