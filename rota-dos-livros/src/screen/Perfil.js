@@ -1,18 +1,21 @@
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useContext } from 'react';
+import { DataContext } from '../context/DataContext';
 
 export function Perfil() {
 
     const navigation = useNavigation();
+    const { dadosUsuario } = useContext(DataContext);
     
     return (
         <View style={styles.container}>
                 <Ionicons name="person-circle" size={130} color="#1D1D1D" />
 
                 <View style={styles.user}>
-                    <Text><Text style={{fontWeight: 'bold'}}>User:</Text> user</Text>
-                    <Text><Text style={{fontWeight: 'bold'}}>Email:</Text> user@mail.com</Text>
+                    <Text><Text style={{fontWeight: 'bold'}}>User: </Text>{dadosUsuario.nome}</Text>
+                    <Text><Text style={{fontWeight: 'bold'}}>Email: </Text>{dadosUsuario.email}</Text>
                 </View>
 
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>

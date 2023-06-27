@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Text, ScrollView } from 'react-native';
 import { AxiosInstance } from '../api/AxiosInstance';
 import { DataContext } from '../context/DataContext';
 import { useContext } from 'react';
@@ -21,8 +21,10 @@ export const EditoraScreen = ({ navigation, route }) => {
             const livroObj = {
                 img: livroResponse.imagem,
                 nomeLivro: livroResponse.nomeLivro,
-                autor: livroResponse.autorDTO.nomeAutor,
+                autorDTO: livroResponse.autorDTO,
                 editoraDTO: livroResponse.editoraDTO,
+                dataLancamento: livroResponse.dataLancamento,
+                codigoIsbn: livroResponse.codigoIsbn
             }
 
             navigation.navigate('Livro', livroObj);
@@ -32,33 +34,31 @@ export const EditoraScreen = ({ navigation, route }) => {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.containerEditora}>
-                <Image
-                    style={styles.logoEditora}
-                    source={{ uri: `data:image/png;base64,${editora.img}` }}
-                />
-                <Text style={styles.nomeEditora}>{editora.nomeEditora}</Text>
-            </View>
+        <ScrollView style={{backgroundColor: '#C2DEDC'}} showsVerticalScrollIndicator={false}>
+            <View style={styles.container}>
+                <View style={styles.containerEditora}>
+                    <Image
+                        style={styles.logoEditora}
+                        source={{ uri: `data:image/png;base64,${editora.img}` }}
+                    />
+                    <Text style={styles.nomeEditora}>{editora.nomeEditora}</Text>
+                </View>
 
-            <View style={styles.containerTituloLivros}>
-                <Text style={styles.tituloLivros}>Livros</Text>
-            </View>
-
-            <View style={styles.containerLivros}>
-                {livro.map((livro) => (
-                    <View key={livro.codigoLivro} style={styles.cardBook}>
-                        <TouchableOpacity onPress={() => goToLivros(livro)}>
-                            <Image
-                                style={styles.imagemLivro}
-                                source={{ uri: `data:image/png;base64,${livro.imagem}` }}
-                            />
-                            <Text style={styles.nomeLivro}>{livro.nomeLivro}</Text>
+                <View style={styles.containerLivros}>
+                    {livro.map((livro) => (
+                        <TouchableOpacity key={livro.codigoLivro} onPress={() => goToLivros(livro)}>
+                            <View style={styles.cardBook}>
+                                <Image
+                                    style={styles.imagemLivro}
+                                    source={{ uri: `data:image/png;base64,${livro.imagem}` }}
+                                />
+                                <Text style={styles.nomeLivro}>{livro.nomeLivro}</Text>
+                            </View>
                         </TouchableOpacity>
-                    </View>
-                ))}
+                    ))}
+                </View>
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
