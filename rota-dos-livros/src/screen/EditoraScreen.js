@@ -66,19 +66,26 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#C2DEDC',
+        alignItems: 'center'
     },
 
     containerEditora: {
         alignItems: 'center',
         justifyContent: 'flex-start',
-        marginTop: 50,
-        marginBottom: 20,
-        marginRight: 'auto',
-        marginLeft: 'auto',
+        marginTop: 30,
+        marginBottom: 50,
         width: '60%',
         padding: 10,
-        borderRadius: 5,
+        borderRadius: 10,
         backgroundColor: '#ECE5C7',
+        shadowColor: '#5e5c50',
+        shadowOffset: {
+            width: 10,
+            height: 10,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 10,
+        elevation: 5,
     },
 
     logoEditora: {
@@ -92,6 +99,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         marginTop: 10,
         color: '#242323',
+        textAlign: 'center'
     },
 
     containerTituloLivros: {
@@ -112,30 +120,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    touchableLivro: {
-        display: 'flex',
-        alignItems: 'center',
-    },
-
     cardBook: {
         alignItems: 'center',
         padding: 20,
-        width: "80%",
         borderRadius: 5,
         justifyContent: 'center',
+        gap: 20
     },
 
     imagemLivro: {
         width: 140,
         height: 200,
         borderRadius: 5,
-        margin: 'auto',
     },
 
     nomeLivro: {
         textAlign: 'center',
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 16,
         color: '#242323',
     },
 });
