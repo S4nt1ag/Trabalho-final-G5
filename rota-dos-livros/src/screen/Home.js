@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from "react-native"
 import LivrosContainer from "../components/LivrosContainer"
 import { Card } from '@rneui/themed';
-import { ScrollView } from "react-native"
+import { ScrollView} from "react-native"
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import EditorasContainer from '../components/EditorasContainer'
@@ -10,6 +10,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 export default function Home() {
     return (
         <ScrollView style={{ backgroundColor: '#C2DEDC' }} showsVerticalScrollIndicator={false}>
+            
             <View style={styles.container}>
                 <EditorasContainer></EditorasContainer>
 

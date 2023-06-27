@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Home from '../screen/Home';
+import AllEditorasScreen from '../screen/AllEditorasScreen'
 import { Favoritos } from '../screen/Favoritos';
 import { Ionicons } from '@expo/vector-icons';
 import { Perfil } from '../screen/Perfil';

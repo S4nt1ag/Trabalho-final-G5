@@ -1,6 +1,6 @@
 import { LoginScreen } from './src/screen/LoginScreen';
 import Tabs from './src/tabs/Tabs';
-// import { EscritoraScreen } from './src/screen/EscritoraScreen';
+import { EditoraScreen } from './src/screen/EditoraScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { DataProvider } from './src/context/DataContext';
@@ -28,7 +28,7 @@ const App = () => {
           }}
             name="Livraria" component={Tabs} />
           <Stack.Screen name="Livro" component={LivroScreen} />
-          {/* <Stack.Screen name="Editora" component={EscritoraScreen} /> */}
+          <Stack.Screen name="Editora" component={EditoraScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </DataProvider>

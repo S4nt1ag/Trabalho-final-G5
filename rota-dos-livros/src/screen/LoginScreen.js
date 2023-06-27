@@ -62,7 +62,7 @@ export const LoginScreen = ({ navigation }) => {
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.txtButton}>Entrar</Text>
+        <Text style={styles.txtButton}>Login</Text>
       </TouchableOpacity>
 
       {erro !== '' && <Text style={styles.erro}>{erro}</Text>}
@@ -84,46 +84,50 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   input: {
-    height: 40,
-    width: 270,
-    margin: 12,
+    height: 42,
+    width: 330,
+    marginTop: 41,
     borderWidth: 1,
-    borderRadius: 15,
+    borderRadius: 20,
     padding: 10,
-    backgroundColor: '#cdc2ae',
+    backgroundColor: '#D9D9D9',
+    color: '#000'
   },
   senhaContainer: {
     position: 'relative',
-    width: 270,
+    width: 330,
   },
   inputSenha: {
-    height: 40,
+    marginTop: 41,
+    height: 42,
     width: '100%',
     borderWidth: 1,
-    borderRadius: 15,
+    borderRadius: 20,
     padding: 10,
-    backgroundColor: '#cdc2ae',
+    backgroundColor: '#D9D9D9',
   },
   olhoButton: {
     position: 'absolute',
     right: 10,
-    top: 8,
+    top: 49,
   },
   button: {
-    borderRadius: 15,
-    backgroundColor: '#000',
-    color: '#fff',
-    width: 150,
+    borderRadius: 20,
+    backgroundColor: '#D9D9D9',
+    color: '#000',
+    width: 134,
     alignItems: 'center',
     justifyContent: 'center',
     textAlignVertical: 'center',
     fontSize: 16,
-    margin: 10,
+    marginTop: 41,
     paddingTop: 10,
     paddingBottom: 10,
+    borderColor: '#000',
+    borderWidth: 1,
   },
   txtButton: {
-    color: '#fff',
+    color: '#000',
   },
   erro: {
     color: 'red',
