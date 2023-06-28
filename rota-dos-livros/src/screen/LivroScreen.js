@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
-import { save, getValueFor } from '../services/DataServices';
+import { save, getValueFor, saveCarrinho } from '../services/DataServices';
 
 
 
@@ -24,6 +24,15 @@ const LivroScreen = ({ navigation, route }) => {
     console.log("id " + livreId)
 
     await save(key , value);
+    console.log("value "+ key + " " + value)
+    
+  };
+
+  const handleAddToCarrinho = async (key , value) => {
+    let livreId = livroData?.codigoLivro;
+    console.log("id " + livreId)
+
+    await saveCarrinho(key , value);
     console.log("value "+ key + " " + value)
     
   };
@@ -52,7 +61,7 @@ const LivroScreen = ({ navigation, route }) => {
       </View>
 
       <View style={styles.containerButao}>
-        <TouchableOpacity style={styles.btnCarrinho}>
+        <TouchableOpacity style={styles.btnCarrinho} onPress={() =>{ handleAddToCarrinho("carrinho" ,livroData?.codigoLivro )}}> 
           {loading ? (
             <ActivityIndicator size="large" color="#116A7B" />
           ) : (
