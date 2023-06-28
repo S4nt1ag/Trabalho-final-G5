@@ -1,28 +1,24 @@
 import * as SecureStore from 'expo-secure-store';
 
 
-async function save(key, value) {
+const save = async (key, value) => {
+  let objetoAtual = null;
+    let arrayObjetos = [];
 
-  try {
-      let itens = await getValueFor(key);
+    objetoAtual = await SecureStore.getItemAsync(key);
+    objetoAtual = JSON.parse(objetoAtual);
 
-      if (itens == null) {
-          itens = [value]
-          await SecureStore.setItemAsync(key, JSON.stringify(itens));
-      } else {
-          let newItens = JSON.parse(itens)
-
-          if (!newItens.includes(value))
-              newItens.push(value)
-
-          await SecureStore.setItemAsync(key, JSON.stringify(newItens));
-      }
-  } catch (error) {
-      console.log("Erro ao persistir dados:" + error);
-  }
-
-  let valores = await getValueFor(key);
-  console.log("Valores:" + JSON.stringify(valores));
+    if (objetoAtual !== null && objetoAtual !== undefined) {
+        arrayObjetos.push(objetoAtual);
+        arrayObjetos.push(value);
+        await SecureStore.setItemAsync(key, JSON.stringify(arrayObjetos));
+        console.log("[" + arrayObjetos + "]")
+    }
+    else {
+        arrayObjetos.push(value);
+        await SecureStore.setItemAsync(key, JSON.stringify(arrayObjetos));
+        console.log(" [" + arrayObjetos + "]")
+    }
 }
 
 const deleteItem = async (key) => {
@@ -36,7 +32,7 @@ async function getValueFor(key) {
     result = await SecureStore.getItemAsync(key);
 
   } catch (error) {
-    console.log('Erro ao recuperar dados' + error);
+    console.log('Erro ao recuperar dados 1' + error);
   }
 
   return JSON.parse(result);

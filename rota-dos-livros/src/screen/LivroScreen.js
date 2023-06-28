@@ -21,10 +21,11 @@ const LivroScreen = ({ navigation, route }) => {
 
    const handleAddToFavorites = async (key , value) => {
     let livreId = livroData?.codigoLivro;
-    console.log("id" + livreId)
+    console.log("id " + livreId)
 
     await save(key , value);
-    console.log("value "+value)
+    console.log("value "+ key + " " + value)
+    
   };
 
   return (
@@ -62,7 +63,7 @@ const LivroScreen = ({ navigation, route }) => {
           )}
         </TouchableOpacity>
 
-      <TouchableOpacity style={styles.btnFavoritos} onPress={() =>{ handleAddToFavorites("favoritos" ,livroData.codigoLivro )}}>
+      <TouchableOpacity style={styles.btnFavoritos} onPress={() =>{ handleAddToFavorites("favoritos" ,livroData?.codigoLivro )}}>
           <Text style={styles.txtBtnFavoritos}>Adicionar aos Favoritos</Text>
           <FontAwesome5 name="heart" size={20} color="#000" />
         </TouchableOpacity>
