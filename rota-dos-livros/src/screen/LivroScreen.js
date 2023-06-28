@@ -1,17 +1,31 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import * as SecureStore from 'expo-secure-store';
+import { save, getValueFor } from '../services/DataServices';
+
+
 
 const LivroScreen = ({ navigation, route }) => {
   const livroData = route.params;
+
   const [loading, setLoading] = useState(false);
 
+//=====================formataçao data = ==================================================
   const dataLancamento = new Date(livroData.dataLancamento);
   const dia = dataLancamento.getDate();
   const mes = dataLancamento.getMonth() + 1;
   const ano = dataLancamento.getFullYear();
-
   const dataFormatada = `${dia}/${mes}/${ano}`;
+//==========================================================================================
+
+   const handleAddToFavorites = async (key , value) => {
+    let livreId = livroData?.codigoLivro;
+    console.log("id" + livreId)
+
+    await save(key , value);
+    console.log("value "+value)
+  };
 
   return (
     <View style={styles.container}>
@@ -35,6 +49,7 @@ const LivroScreen = ({ navigation, route }) => {
           </Text>
         </View>
       </View>
+
       <View style={styles.containerButao}>
         <TouchableOpacity style={styles.btnCarrinho}>
           {loading ? (
@@ -46,7 +61,8 @@ const LivroScreen = ({ navigation, route }) => {
             </>
           )}
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btnFavoritos}>
+
+      <TouchableOpacity style={styles.btnFavoritos} onPress={() =>{ handleAddToFavorites("favoritos" ,livroData.codigoLivro )}}>
           <Text style={styles.txtBtnFavoritos}>Adicionar aos Favoritos</Text>
           <FontAwesome5 name="heart" size={20} color="#000" />
         </TouchableOpacity>
