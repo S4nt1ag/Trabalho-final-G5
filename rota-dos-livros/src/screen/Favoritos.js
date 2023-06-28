@@ -1,7 +1,8 @@
 import { ScrollView } from "react-native";
-import { Text, View, Image, StyleSheet } from "react-native";
+import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Foundation } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+import { deleteAllFavoritos } from '../services/DataServices';
 
 export function Favoritos() {
     return (
@@ -12,9 +13,11 @@ export function Favoritos() {
                 <View style={styles.header}>
                     <Text style={styles.title}>Meus Favoritos</Text>
 
-                    <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+                    <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
                         <Text>3 livro(s)</Text>
-                        <Foundation name="trash" size={20} color="black" />
+                        <TouchableOpacity onPress={deleteAllFavoritos}>
+                            <Foundation name="trash" size={20} color="black" />
+                        </TouchableOpacity>
                     </View>
                 </View>
 
@@ -24,7 +27,7 @@ export function Favoritos() {
                         <Text style={styles.bookName}>1984</Text>
                         <Text style={styles.bookAuthor}>Autor: George Orwell</Text>
                     </View>
-                    <Entypo name="cross" size={24} color="#fff" style={{alignSelf: 'flex-start'}}/>
+                    <Entypo name="cross" size={24} color="#fff" style={{ alignSelf: 'flex-start' }} />
                 </View>
 
                 <View style={styles.favorite}>
@@ -33,7 +36,7 @@ export function Favoritos() {
                         <Text style={styles.bookName}>1984</Text>
                         <Text style={styles.bookAuthor}>Autor: George Orwell</Text>
                     </View>
-                    <Entypo name="cross" size={24} color="#fff" style={{alignSelf: 'flex-start'}}/>
+                    <Entypo name="cross" size={24} color="#fff" style={{ alignSelf: 'flex-start' }} />
                 </View>
 
                 <View style={styles.favorite}>
@@ -42,7 +45,7 @@ export function Favoritos() {
                         <Text style={styles.bookName}>1984</Text>
                         <Text style={styles.bookAuthor}>Autor: George Orwell</Text>
                     </View>
-                    <Entypo name="cross" size={24} color="#fff" style={{alignSelf: 'flex-start'}}/>
+                    <Entypo name="cross" size={24} color="#fff" style={{ alignSelf: 'flex-start' }} />
                 </View>
 
                 <View style={styles.favorite}>
@@ -51,7 +54,7 @@ export function Favoritos() {
                         <Text style={styles.bookName}>1984</Text>
                         <Text style={styles.bookAuthor}>Autor: George Orwell</Text>
                     </View>
-                    <Entypo name="cross" size={24} color="#fff" style={{alignSelf: 'flex-start'}}/>
+                    <Entypo name="cross" size={24} color="#fff" style={{ alignSelf: 'flex-start' }} />
                 </View>
 
                 <View style={styles.favorite}>
@@ -60,7 +63,7 @@ export function Favoritos() {
                         <Text style={styles.bookName}>1984</Text>
                         <Text style={styles.bookAuthor}>Autor: George Orwell</Text>
                     </View>
-                    <Entypo name="cross" size={24} color="#fff" style={{alignSelf: 'flex-start'}}/>
+                    <Entypo name="cross" size={24} color="#fff" style={{ alignSelf: 'flex-start' }} />
                 </View>
 
             </View>

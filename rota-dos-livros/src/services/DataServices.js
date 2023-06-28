@@ -6,10 +6,10 @@ const save = async (key, value) => {
   let arrayObjetos = [];
 
   objetoAtual = await SecureStore.getItemAsync(key);
-  
+
   if (objetoAtual !== null && objetoAtual !== undefined) {
     arrayObjetos = JSON.parse(objetoAtual);
-    
+
     if (!arrayObjetos.includes(value)) {
       arrayObjetos.push(value);
       await SecureStore.setItemAsync(key, JSON.stringify(arrayObjetos));
@@ -18,12 +18,16 @@ const save = async (key, value) => {
     arrayObjetos.push(value);
     await SecureStore.setItemAsync(key, JSON.stringify(arrayObjetos));
   }
-  
+
   console.log("[" + arrayObjetos + "]");
 };
 
 const deleteItem = async (key) => {
   await SecureStore.deleteItemAsync(key);
+};
+
+const deleteAllFavoritos = async () => {
+  await SecureStore.deleteItemAsync('favoritos');
 };
 
 async function getValueFor(key) {
@@ -39,4 +43,4 @@ async function getValueFor(key) {
   return JSON.parse(result);
 }
 
-export { save, getValueFor, deleteItem };
+export { save, getValueFor, deleteItem, deleteAllFavoritos };
