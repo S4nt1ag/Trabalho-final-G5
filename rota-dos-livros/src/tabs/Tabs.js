@@ -1,7 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Home from '../screen/Home';
-import AllEditorasScreen from '../screen/AllEditorasScreen'
+import AllEditorasScreen from '../screen/AllEditorasScreen';
+import { CarrinhoScreen } from '../screen/CarrinhoScreen';
 import { Favoritos } from '../screen/Favoritos';
 import { Ionicons } from '@expo/vector-icons';
 import { Perfil } from '../screen/Perfil';
@@ -52,7 +53,7 @@ export default function Tabs() {
             />
             <Tab.Screen
                 name="Carrinho"
-                component={Home}
+                component={CarrinhoScreen}
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="cart" color={color} size={size} />
