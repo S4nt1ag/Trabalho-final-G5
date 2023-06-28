@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Text, ScrollView, ActivityIndicator } from 'react-native';
 import { AxiosInstance } from '../api/AxiosInstance';
 import { DataContext } from '../context/DataContext';
 import { useContext } from 'react';
@@ -21,8 +21,10 @@ export const EditoraScreen = ({ navigation, route }) => {
             const livroObj = {
                 img: livroResponse.imagem,
                 nomeLivro: livroResponse.nomeLivro,
-                autor: livroResponse.autorDTO.nomeAutor,
+                autorDTO: livroResponse.autorDTO,
                 editoraDTO: livroResponse.editoraDTO,
+                dataLancamento: livroResponse.dataLancamento,
+                codigoIsbn: livroResponse.codigoIsbn
             }
 
             navigation.navigate('Livro', livroObj);
@@ -32,33 +34,31 @@ export const EditoraScreen = ({ navigation, route }) => {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.containerEditora}>
-                <Image
-                    style={styles.logoEditora}
-                    source={{ uri: `data:image/png;base64,${editora.img}` }}
-                />
-                <Text style={styles.nomeEditora}>{editora.nomeEditora}</Text>
-            </View>
+        <ScrollView style={{backgroundColor: '#C2DEDC'}} showsVerticalScrollIndicator={false}>
+            <View style={styles.container}>
+                <View style={styles.containerEditora}>
+                    <Image
+                        style={styles.logoEditora}
+                        source={{ uri: `data:image/png;base64,${editora.img}` }}
+                    />
+                    <Text style={styles.nomeEditora}>{editora.nomeEditora}</Text>
+                </View>
 
-            <View style={styles.containerTituloLivros}>
-                <Text style={styles.tituloLivros}>Livros</Text>
-            </View>
-
-            <View style={styles.containerLivros}>
-                {livro.map((livro) => (
-                    <View key={livro.codigoLivro} style={styles.cardBook}>
-                        <TouchableOpacity onPress={() => goToLivros(livro)}>
-                            <Image
-                                style={styles.imagemLivro}
-                                source={{ uri: `data:image/png;base64,${livro.imagem}` }}
-                            />
-                            <Text style={styles.nomeLivro}>{livro.nomeLivro}</Text>
+                <View style={styles.containerLivros}>
+                    {livro.map((livro) => (
+                        <TouchableOpacity key={livro.codigoLivro} onPress={() => goToLivros(livro)}>
+                            <View style={styles.cardBook}>
+                                <Image
+                                    style={styles.imagemLivro}
+                                    source={{ uri: `data:image/png;base64,${livro.imagem}` }}
+                                />
+                                <Text style={styles.nomeLivro}>{livro.nomeLivro}</Text>
+                            </View>
                         </TouchableOpacity>
-                    </View>
-                ))}
+                    ))}
+                </View>
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
@@ -66,19 +66,26 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#C2DEDC',
+        alignItems: 'center'
     },
 
     containerEditora: {
         alignItems: 'center',
         justifyContent: 'flex-start',
-        marginTop: 50,
-        marginBottom: 20,
-        marginRight: 'auto',
-        marginLeft: 'auto',
+        marginTop: 30,
+        marginBottom: 50,
         width: '60%',
         padding: 10,
-        borderRadius: 5,
+        borderRadius: 10,
         backgroundColor: '#ECE5C7',
+        shadowColor: '#5e5c50',
+        shadowOffset: {
+            width: 10,
+            height: 10,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 10,
+        elevation: 5,
     },
 
     logoEditora: {
@@ -92,6 +99,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         marginTop: 10,
         color: '#242323',
+        textAlign: 'center'
     },
 
     containerTituloLivros: {
@@ -115,8 +123,9 @@ const styles = StyleSheet.create({
     cardBook: {
         alignItems: 'center',
         padding: 20,
-        width: "80%",
         borderRadius: 5,
+        justifyContent: 'center',
+        gap: 20
     },
 
     imagemLivro: {
@@ -128,7 +137,7 @@ const styles = StyleSheet.create({
     nomeLivro: {
         textAlign: 'center',
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 16,
         color: '#242323',
     },
 });

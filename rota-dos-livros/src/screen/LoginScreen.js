@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useContext } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 import { AxiosInstance } from '../api/AxiosInstance';
 import { DataContext } from '../context/DataContext';
@@ -41,7 +41,13 @@ export const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Bem-vindo</Text>
+      <Image
+        style={styles.tinyLogo}
+        source={{
+          uri: 'https://media.discordapp.net/attachments/1081311934558781522/1123418429446172692/Inserir_um_titulo-removebg-preview_1.png',
+        }}
+      />
+      
       <TextInput
         style={styles.input}
         onChangeText={setUsuario}
@@ -80,7 +86,7 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 40,
     fontWeight: 'bold',
-    marginVertical: 10,
+    marginVertical: 0,
     color: '#000',
   },
   input: {
@@ -132,5 +138,9 @@ const styles = StyleSheet.create({
   erro: {
     color: 'red',
     marginTop: 10,
+  },
+  tinyLogo: {
+    width: 270,
+    height: 190,
   },
 });

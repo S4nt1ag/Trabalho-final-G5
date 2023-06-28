@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
 import { save, getValueFor } from '../services/DataServices';
@@ -8,6 +8,8 @@ import { save, getValueFor } from '../services/DataServices';
 
 const LivroScreen = ({ navigation, route }) => {
   const livroData = route.params;
+
+  const [loading, setLoading] = useState(false);
 
 //=====================formataçao data = ==================================================
   const dataLancamento = new Date(livroData.dataLancamento);
@@ -26,7 +28,6 @@ const LivroScreen = ({ navigation, route }) => {
   };
 
   return (
-
     <View style={styles.container}>
       <View style={styles.cardLivro}>
         <View style={styles.cardImagem}>
@@ -34,17 +35,31 @@ const LivroScreen = ({ navigation, route }) => {
         </View>
         <View style={styles.cardInfo}>
           <Text style={styles.tituloLivro}>{livroData?.nomeLivro}</Text>
-          <Text style={styles.autorLivro}><Text style={{ fontWeight: 'bold' }}>Autor:</Text> {livroData?.autorDTO?.nomeAutor}</Text>
-          <Text style={styles.editoraLivro}><Text style={{ fontWeight: 'bold' }}>Editora:</Text> {livroData?.editoraDTO?.nomeEditora}</Text>
-          <Text style={styles.codigoLivro}><Text style={{ fontWeight: 'bold' }}>ISBN:</Text> {livroData?.codigoIsbn}</Text>
-          <Text style={styles.dataLancamento}><Text style={{ fontWeight: 'bold' }}>Data de Lançamento:</Text> {dataFormatada}</Text>
+          <Text style={styles.autorLivro}>
+            <Text style={{ fontWeight: 'bold' }}>Autor:</Text> {livroData?.autorDTO?.nomeAutor}
+          </Text>
+          <Text style={styles.editoraLivro}>
+            <Text style={{ fontWeight: 'bold' }}>Editora:</Text> {livroData?.editoraDTO?.nomeEditora}
+          </Text>
+          <Text style={styles.codigoLivro}>
+            <Text style={{ fontWeight: 'bold' }}>ISBN:</Text> {livroData?.codigoIsbn}
+          </Text>
+          <Text style={styles.dataLancamento}>
+            <Text style={{ fontWeight: 'bold' }}>Data de Lançamento:</Text> {dataFormatada}
+          </Text>
         </View>
       </View>
 
       <View style={styles.containerButao}>
         <TouchableOpacity style={styles.btnCarrinho}>
-          <Text style={styles.txtBtnCarrinho}>Adicionar ao Carrinho</Text>
-          <FontAwesome5 name="shopping-cart" size={20} color="#fff" />
+          {loading ? (
+            <ActivityIndicator size="large" color="#116A7B" />
+          ) : (
+            <>
+              <Text style={styles.txtBtnCarrinho}>Adicionar ao Carrinho</Text>
+              <FontAwesome5 name="shopping-cart" size={20} color="#fff" />
+            </>
+          )}
         </TouchableOpacity>
 
       <TouchableOpacity style={styles.btnFavoritos} onPress={() =>{ handleAddToFavorites("favoritos" ,livroData.codigoLivro )}}>
@@ -91,7 +106,7 @@ const styles = StyleSheet.create({
   cardInfo: {
     flex: 1,
     alignItems: 'center',
-    gap: 5
+    gap: 5,
   },
   tinyLogo: {
     width: 250,
