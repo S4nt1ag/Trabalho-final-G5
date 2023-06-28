@@ -1,20 +1,33 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import * as SecureStore from 'expo-secure-store';
+import { save, getValueFor } from '../services/DataServices';
+
+
 
 const LivroScreen = ({ navigation, route }) => {
-  const livroData = route.params
+  const livroData = route.params;
 
+//=====================formataçao data = ==================================================
   const dataLancamento = new Date(livroData.dataLancamento);
   const dia = dataLancamento.getDate();
   const mes = dataLancamento.getMonth() + 1;
   const ano = dataLancamento.getFullYear();
-
   const dataFormatada = `${dia}/${mes}/${ano}`;
+//==========================================================================================
+
+   const handleAddToFavorites = async (key , value) => {
+    let livreId = livroData?.codigoLivro;
+    console.log("id" + livreId)
+
+    await save(key , value);
+    console.log("value "+value)
+  };
 
   return (
-    <View style={styles.container}>
 
+    <View style={styles.container}>
       <View style={styles.cardLivro}>
         <View style={styles.cardImagem}>
           <Image resizeMode="contain" style={styles.tinyLogo} source={{ uri: `data:image/jpeg;base64,${livroData.img}` }} />
@@ -27,12 +40,14 @@ const LivroScreen = ({ navigation, route }) => {
           <Text style={styles.dataLancamento}><Text style={{ fontWeight: 'bold' }}>Data de Lançamento:</Text> {dataFormatada}</Text>
         </View>
       </View>
+
       <View style={styles.containerButao}>
         <TouchableOpacity style={styles.btnCarrinho}>
           <Text style={styles.txtBtnCarrinho}>Adicionar ao Carrinho</Text>
           <FontAwesome5 name="shopping-cart" size={20} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btnFavoritos}>
+
+      <TouchableOpacity style={styles.btnFavoritos} onPress={() =>{ handleAddToFavorites("favoritos" ,livroData.codigoLivro )}}>
           <Text style={styles.txtBtnFavoritos}>Adicionar aos Favoritos</Text>
           <FontAwesome5 name="heart" size={20} color="#000" />
         </TouchableOpacity>
@@ -40,7 +55,6 @@ const LivroScreen = ({ navigation, route }) => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -105,7 +119,7 @@ const styles = StyleSheet.create({
     margin: 10,
     paddingTop: 10,
     paddingBottom: 10,
-    display:'flex',
+    display: 'flex',
     flexDirection: 'row',
     gap: 10,
   },
@@ -125,7 +139,7 @@ const styles = StyleSheet.create({
     margin: 10,
     paddingTop: 10,
     paddingBottom: 10,
-    display:'flex',
+    display: 'flex',
     flexDirection: 'row',
     gap: 10,
   },
@@ -134,7 +148,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
-
 });
 
 export default LivroScreen;
