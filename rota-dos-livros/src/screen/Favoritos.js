@@ -62,13 +62,15 @@ export function Favoritos() {
                 <Text style={styles.title}>Meus Favoritos</Text>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
                     {quantidadeItensFavoritos !== 0 ? (
-                        <Text>{quantidadeItensFavoritos} item(s)</Text>
+                        <View style={{ justifyContent: 'space-between', flexDirection: 'row', width: "100%" }}>
+                            <Text>{quantidadeItensFavoritos} item(s)</Text>
+                            <TouchableOpacity onPress={() => removerFavoritos()}>
+                                <Foundation name="trash" size={25} color="black" />
+                            </TouchableOpacity>
+                        </View>
                     ) : (
-                        <Text>Sem favoritos</Text>
+                        <Text>Você ainda não possui favoritos</Text>
                     )}
-                    <TouchableOpacity onPress={() => removerFavoritos()}>
-                        <Foundation name="trash" size={20} color="black" />
-                    </TouchableOpacity>
                 </View>
             </View>
             {isLoading ? (

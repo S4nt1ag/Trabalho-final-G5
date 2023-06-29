@@ -12,27 +12,27 @@ const App = () => {
 
   return (
     <DataProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={
-            {
-              headerStyle: {
-                backgroundColor: "#116A7B",
-                borderBottomWidth: 0,
-              },
-              headerTintColor: "#fff"
-            }}>
-          <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
-          
-          <Stack.Screen options={{
-            headerLeft: null
-          }}
-            name="Livraria" component={Tabs} />
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={
+              {
+                headerStyle: {
+                  backgroundColor: "#116A7B",
+                  borderBottomWidth: 0,
+                },
+                headerTintColor: "#fff"
+              }}>
+            <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
 
-          <Stack.Screen name="Livro" component={LivroScreen} />
-          <Stack.Screen name="Editora" component={EditoraScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+            <Stack.Screen options={{
+              headerLeft: null
+            }}
+              name="Livraria" component={Tabs} />
+
+            <Stack.Screen name="Livro" component={LivroScreen} />
+            <Stack.Screen name="Editora" component={EditoraScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
     </DataProvider>
   );
 }
