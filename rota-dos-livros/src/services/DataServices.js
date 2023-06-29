@@ -89,4 +89,16 @@ const deleteItemUni = async (key, value) => {
   console.log("[" + arrayObjetos + "]");
 };
 
-export { save, getValueFor, deleteItem, deleteItemUni, deleteAllFavoritos, saveCarrinho, deleteAllCarrinho};
+const saveTotalQntd = async (value) => {
+  let qntdTotal = null
+  qntdTotal = await SecureStore.getItemAsync('qntdTotal');
+
+  await SecureStore.setItemAsync('qntdTotal', JSON.stringify(value))
+}
+
+const deleteQntdTotal = async () => {
+  await SecureStore.deleteItemAsync('qntdTotal');
+  console.log("qntdTotal resetado")
+}
+
+export { save, getValueFor, deleteItem, deleteItemUni, deleteAllFavoritos, saveCarrinho, deleteAllCarrinho, saveTotalQntd, deleteQntdTotal };

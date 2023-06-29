@@ -4,7 +4,7 @@ import { AxiosInstance } from '../api/AxiosInstance';
 import { DataContext } from '../context/DataContext';
 import { deleteAllCarrinho } from '../services/DataServices';
 import { useFocusEffect } from '@react-navigation/native';
-import { getValueFor } from "../services/DataServices";
+import { getValueFor, saveTotalQntd, deleteQntdTotal } from "../services/DataServices";
 import { ItemCarrinho } from '../components/ItemCarrinho';
 import { Foundation } from '@expo/vector-icons';
 import { CartContext } from '../context/CartContext';
@@ -15,7 +15,7 @@ export const CarrinhoScreen = () => {
     const { dadosUsuario } = useContext(DataContext)
     const [quantidadeItensCarrinho, setQuantidadeItensCarrinho] = useState(0);
     const [valorItensCarrinho, setValorItensCarrinho] = useState(0);
-    const { qntdCarrinho, setQntdCarrinho } = useContext(CartContext)
+    const { qntdCarrinho, setQntdCarrinho, getTotal } = useContext(CartContext)
 
 
     const getFavoritos = async () => {
@@ -49,8 +49,13 @@ export const CarrinhoScreen = () => {
     async function removerCarrinho() {
         await deleteAllCarrinho()
         setQntdCarrinho(0)
+        deleteQntdTotal()
         getFavoritos()
     }
+
+    useEffect(() => {
+        getTotal()
+    }, [])
 
     useFocusEffect(
         React.useCallback(() => {

@@ -1,19 +1,30 @@
 import React, { createContext, useState } from 'react';
+import { saveTotalQntd, getValueFor } from '../services/DataServices'
 
 export const CartContext = createContext({});
 
 export const CartProvider = ({ children }) => {
     const [qntdCarrinho, setQntdCarrinho] = useState(0);
+    
+    const getTotal = async () => {
+        let total = null
+        total = await getValueFor('qntdTotal')
 
-    const addToCart = () => {
+        if (total != null) {
+            let value = parseInt(total)
+            setQntdCarrinho(value)
+        }
+    }
+
+    const addToCart = async () => {
         setQntdCarrinho(qntdCarrinho + 1);
+        await saveTotalQntd(qntdCarrinho);
     };
 
-    const removeFromCart = (qntd) => {
+    const removeFromCart = async (qntd) => {
         if (qntdCarrinho > 0 && qntd < qntdCarrinho) {
             setQntdCarrinho(qntdCarrinho - qntd);
-        } else {
-            setQntdCarrinho(0); // Zera a quantidade no carrinho
+            await saveTotalQntd(qntdCarrinho - qntd);
         }
     };
 
@@ -22,7 +33,8 @@ export const CartProvider = ({ children }) => {
             qntdCarrinho,
             addToCart,
             removeFromCart,
-            setQntdCarrinho
+            setQntdCarrinho,
+            getTotal
         }}>
             {children}
         </CartContext.Provider>

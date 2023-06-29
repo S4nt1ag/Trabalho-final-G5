@@ -22,6 +22,7 @@ export function Perfil() {
             <TouchableOpacity style={styles.button} onPress={() =>
                 {deleteItem('favoritos')
                 deleteItem('carrinho')
+                deleteItem('qntdTotal')
                 navigation.navigate('Login')}
             }>
                 <View style={styles.buttonContent}>

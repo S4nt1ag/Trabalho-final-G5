@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { save, getValueFor, saveCarrinho } from '../services/DataServices';
+import { save, getValueFor, saveCarrinho, saveTotalQntd } from '../services/DataServices';
 import { CartContext } from '../context/CartContext';
 
 const LivroScreen = ({ navigation, route }) => {

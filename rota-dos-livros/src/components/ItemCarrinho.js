@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Foundation } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import { removeItenCart, deleteItemUni } from '../services/DataServices';
+import { removeItenCart, deleteItemUni, saveTotalQntd } from '../services/DataServices';
 import { CartContext } from '../context/CartContext';
 import * as SecureStore from 'expo-secure-store';
 
@@ -56,7 +56,7 @@ export const ItemCarrinho = (props) => {
         }
     };
 
-    const incrementarQuantidade = () => {
+    const incrementarQuantidade = async () => {
         setQtd(qtd + 1);
         setValorUni(valorUni + 20);
         addToCart();
