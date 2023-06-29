@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-import * as SecureStore from 'expo-secure-store';
 import { save, getValueFor, saveCarrinho } from '../services/DataServices';
-
-
+import { CartContext } from '../context/CartContext';
 
 const LivroScreen = ({ navigation, route }) => {
   const livroData = route.params;
-
+  const { addToCart } = useContext(CartContext)
   const [loading, setLoading] = useState(false);
 
   //=====================formataçao data = ==================================================
@@ -33,8 +31,8 @@ const LivroScreen = ({ navigation, route }) => {
     console.log("id " + livreId)
 
     await saveCarrinho(key, value);
+    addToCart()
     console.log("value " + key + " " + value)
-
   };
 
   return (

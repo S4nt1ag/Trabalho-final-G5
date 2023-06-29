@@ -7,6 +7,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { getValueFor } from "../services/DataServices";
 import { ItemCarrinho } from '../components/ItemCarrinho';
 import { Foundation } from '@expo/vector-icons';
+import { CartContext } from '../context/CartContext';
 
 export const CarrinhoScreen = () => {
     const [livros, setLivros] = useState([])
@@ -14,7 +15,7 @@ export const CarrinhoScreen = () => {
     const { dadosUsuario } = useContext(DataContext)
     const [quantidadeItensCarrinho, setQuantidadeItensCarrinho] = useState(0);
     const [valorItensCarrinho, setValorItensCarrinho] = useState(0);
-
+    const { qntdCarrinho } = useContext(CartContext)
 
 
     const getFavoritos = async () => {
@@ -53,7 +54,7 @@ export const CarrinhoScreen = () => {
     useFocusEffect(
         React.useCallback(() => {
             getFavoritos();
-        }, [])
+        }, [livros])
     );
 
     return (
@@ -64,7 +65,7 @@ export const CarrinhoScreen = () => {
                 {
                     quantidadeItensCarrinho != 0 ? (
                         <View style={styles.qtd_lixeira}>
-                            <Text>{quantidadeItensCarrinho} livro(s)</Text>
+                            <Text>{qntdCarrinho} livro(s)</Text>
                             <TouchableOpacity onPress={removerCarrinho}>
                                 <Foundation name="trash" size={25} color="black" />
                             </TouchableOpacity>
@@ -101,7 +102,7 @@ export const CarrinhoScreen = () => {
                 quantidadeItensCarrinho != 0 ? (
                     <View style={styles.containerTotal}>
                         <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Total</Text>
-                        <Text>R$ {valorItensCarrinho},00</Text>
+                        <Text>R$ {qntdCarrinho*20},00</Text>
                     </View>
                 ) : (
                     null

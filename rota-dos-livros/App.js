@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { DataProvider } from './src/context/DataContext';
 import LivroScreen from './src/screen/LivroScreen';
+import { CartProvider } from './src/context/CartContext';
 
 const Stack = createStackNavigator();
 
@@ -12,6 +13,7 @@ const App = () => {
 
   return (
     <DataProvider>
+      <CartProvider>
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={
@@ -33,6 +35,7 @@ const App = () => {
             <Stack.Screen name="Editora" component={EditoraScreen} />
           </Stack.Navigator>
         </NavigationContainer>
+      </CartProvider>
     </DataProvider>
   );
 }

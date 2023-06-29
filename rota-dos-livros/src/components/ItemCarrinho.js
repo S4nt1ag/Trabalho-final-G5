@@ -1,25 +1,31 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState, useContext} from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Foundation } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import { removeItenCart } from '../services/DataServices';
+import { removeItenCart, deleteItemUni } from '../services/DataServices';
+import { CartContext } from '../context/CartContext';
 
 export const ItemCarrinho = (props) => {
 
 
     const [qtd, setQtd] = useState(1);
     const [valorUni, setValorUni] = useState(20);
+    const { addToCart, qntdCarrinho, removeFromCart } = useContext(CartContext)
 
     const decrementarQuantidade = () => {
         if (qtd > 1 && valorUni > 20) {
             setQtd(qtd - 1);
             setValorUni(valorUni - 20);
+            removeFromCart(1)
+            console.log(qntdCarrinho)
         }
     };
 
     const incrementarQuantidade = () => {
         setQtd(qtd + 1);
         setValorUni(valorUni + 20);
+        addToCart()
+        console.log(qntdCarrinho)
     };
 
 
@@ -54,7 +60,7 @@ export const ItemCarrinho = (props) => {
                     <Text style={{ fontWeight: 'bold', fontSize: 13 }}>
                         R$ {valorUni},00
                     </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => deleteItemUni('carrinho', props.id)}>
                         <Foundation name="trash" size={22} color="black" />
                     </TouchableOpacity>
                 </View>

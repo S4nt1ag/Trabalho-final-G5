@@ -88,7 +88,7 @@ export function Favoritos() {
                                 <Text style={styles.bookName}>{item.nomeLivro}</Text>
                                 <Text style={styles.bookAuthor}>{item.autorDTO.nomeAutor}</Text>
                             </View>
-                            <TouchableOpacity onPress={() => removerFavorito('favoritos', livros)}>
+                            <TouchableOpacity onPress={() => removerFavorito('favoritos', item.codigoLivro)}>
                                 <Entypo name="cross" size={24} color="#fff" style={{ alignSelf: 'flex-start' }} />
                             </TouchableOpacity>
                         </View>
