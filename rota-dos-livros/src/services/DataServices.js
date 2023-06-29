@@ -24,23 +24,23 @@ const save = async (key, value) => {
 
 const saveCarrinho = async (key, value) => {
   let objetoAtual = null;
-    let arrayObjetos = [];
+  let arrayObjetos = [];
 
-    objetoAtual = await SecureStore.getItemAsync(key);
-    objetoAtual = JSON.parse(objetoAtual);
+  objetoAtual = await SecureStore.getItemAsync(key);
 
-    if (objetoAtual !== null && objetoAtual !== undefined) {
-        arrayObjetos.push(objetoAtual);
-        arrayObjetos.push(value);
-        await SecureStore.setItemAsync(key, JSON.stringify(arrayObjetos));
+  if (objetoAtual !== null && objetoAtual !== undefined) {
+    arrayObjetos = JSON.parse(objetoAtual);
+
+    if (!arrayObjetos.includes(value)) {
+      arrayObjetos.push(value);
+      await SecureStore.setItemAsync(key, JSON.stringify(arrayObjetos));
     }
-    else {
-        arrayObjetos.push(value);
-        await SecureStore.setItemAsync(key, JSON.stringify(arrayObjetos));
-    }
+  } else {
+    arrayObjetos.push(value);
+    await SecureStore.setItemAsync(key, JSON.stringify(arrayObjetos));
+  }
 
-    console.log("[" + arrayObjetos + "]");
-
+  console.log("[" + arrayObjetos + "]");
 };
 
 const deleteItem = async (key) => {
@@ -70,19 +70,23 @@ async function getValueFor(key) {
   return result;
 }
 
-// const deleteId = async (key,value) => {
+const deleteItemUni = async (key, value) => {
+  let objetoAtual = null;
+  let arrayObjetos = [];
 
-//   let object = await SecureStore.getItemAsync(key);
-//   object = JSON.parse(object)
-//   console.log(object)
+  objetoAtual = await SecureStore.getItemAsync(key);
 
-//   if(object.includes(value)) {
-//     let i = object.indexOf(value)
-//     object.splice(i, 1)
-//     await SecureStore.setItemAsync(key, JSON.stringify(object));
-//   } else {
-//     console.log(false)
-//   }
-// }
+  if (objetoAtual !== null && objetoAtual !== undefined) {
+    arrayObjetos = JSON.parse(objetoAtual);
 
-export { save, getValueFor, deleteItem, deleteAllFavoritos, saveCarrinho, deleteAllCarrinho };
+    const index = arrayObjetos.indexOf(value);
+    if (index !== value) {
+      arrayObjetos.splice(index, 1);
+      await SecureStore.setItemAsync(key, JSON.stringify(arrayObjetos));
+    }
+  }
+
+  console.log("[" + arrayObjetos + "]");
+};
+
+export { save, getValueFor, deleteItem, deleteItemUni, deleteAllFavoritos, saveCarrinho, deleteAllCarrinho};

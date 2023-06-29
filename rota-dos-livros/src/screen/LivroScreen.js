@@ -11,30 +11,30 @@ const LivroScreen = ({ navigation, route }) => {
 
   const [loading, setLoading] = useState(false);
 
-//=====================formataçao data = ==================================================
+  //=====================formataçao data = ==================================================
   const dataLancamento = new Date(livroData.dataLancamento);
   const dia = dataLancamento.getDate();
   const mes = dataLancamento.getMonth() + 1;
   const ano = dataLancamento.getFullYear();
   const dataFormatada = `${dia}/${mes}/${ano}`;
-//==========================================================================================
+  //==========================================================================================
 
-   const handleAddToFavorites = async (key , value) => {
+  const handleAddToFavorites = async (key, value) => {
     let livreId = livroData?.codigoLivro;
     console.log("id " + livreId)
 
-    await save(key , value);
-    console.log("value "+ key + " " + value)
-    
+    await save(key, value);
+    console.log("value " + key + " " + value)
+
   };
 
-  const handleAddToCarrinho = async (key , value) => {
+  const handleAddToCarrinho = async (key, value) => {
     let livreId = livroData?.codigoLivro;
     console.log("id " + livreId)
 
-    await saveCarrinho(key , value);
-    console.log("value "+ key + " " + value)
-    
+    await saveCarrinho(key, value);
+    console.log("value " + key + " " + value)
+
   };
 
   return (
@@ -61,7 +61,7 @@ const LivroScreen = ({ navigation, route }) => {
       </View>
 
       <View style={styles.containerButao}>
-        <TouchableOpacity style={styles.btnCarrinho} onPress={() =>{ handleAddToCarrinho("carrinho" ,livroData?.codigoLivro )}}> 
+        <TouchableOpacity style={styles.btnCarrinho} onPress={() => { handleAddToCarrinho("carrinho", livroData?.codigoLivro) }}>
           {loading ? (
             <ActivityIndicator size="large" color="#116A7B" />
           ) : (
@@ -72,7 +72,7 @@ const LivroScreen = ({ navigation, route }) => {
           )}
         </TouchableOpacity>
 
-      <TouchableOpacity style={styles.btnFavoritos} onPress={() =>{ handleAddToFavorites("favoritos" ,livroData?.codigoLivro )}}>
+        <TouchableOpacity style={styles.btnFavoritos} onPress={() => { handleAddToFavorites("favoritos", livroData?.codigoLivro) }}>
           <Text style={styles.txtBtnFavoritos}>Adicionar aos Favoritos</Text>
           <FontAwesome5 name="heart" size={20} color="#000" />
         </TouchableOpacity>
