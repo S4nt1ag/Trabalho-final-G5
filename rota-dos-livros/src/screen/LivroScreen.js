@@ -87,13 +87,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#C2DEDC',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 15
   },
   cardLivro: {
-    flex: 3,
+    width: '100%',
     flexDirection: 'column',
     alignItems: 'center',
     padding: 15,
-    marginVertical: 10,
     borderRadius: 30,
     backgroundColor: '#ECE5C7',
     shadowColor: '#5e5c50',
@@ -106,26 +106,23 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   cardImagem: {
-    flex: 2,
     marginBottom: 10,
-    width: 320,
-    height: 320,
     justifyContent: 'center',
     alignItems: 'center',
   },
   cardInfo: {
-    flex: 1,
     alignItems: 'center',
     gap: 5,
   },
   tinyLogo: {
-    width: 250,
-    height: 300,
+    width: 200,
+    height: 200,
   },
   tituloLivro: {
-    fontSize: 25,
+    fontSize: 23,
     fontWeight: 'bold',
     paddingBottom: 20,
+    textAlign: 'center'
   },
   editoraLivro: {
     fontSize: 15,
