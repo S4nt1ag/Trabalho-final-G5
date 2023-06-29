@@ -15,7 +15,7 @@ export const CarrinhoScreen = () => {
     const { dadosUsuario } = useContext(DataContext)
     const [quantidadeItensCarrinho, setQuantidadeItensCarrinho] = useState(0);
     const [valorItensCarrinho, setValorItensCarrinho] = useState(0);
-    const { qntdCarrinho } = useContext(CartContext)
+    const { qntdCarrinho, setQntdCarrinho } = useContext(CartContext)
 
 
     const getFavoritos = async () => {
@@ -48,6 +48,7 @@ export const CarrinhoScreen = () => {
 
     async function removerCarrinho() {
         await deleteAllCarrinho()
+        setQntdCarrinho(0)
         getFavoritos()
     }
 
