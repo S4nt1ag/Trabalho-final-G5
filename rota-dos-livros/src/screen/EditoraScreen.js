@@ -19,6 +19,7 @@ export const EditoraScreen = ({ navigation, route }) => {
             const livroResponse = response.data;
 
             const livroObj = {
+                codigoLivro: livroResponse.codigoLivro,
                 img: livroResponse.imagem,
                 nomeLivro: livroResponse.nomeLivro,
                 autorDTO: livroResponse.autorDTO,
