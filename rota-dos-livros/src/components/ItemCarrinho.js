@@ -1,9 +1,12 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState} from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { Foundation } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import { removeItenCart } from '../services/DataServices';
 
 export const ItemCarrinho = (props) => {
+
+
     const [qtd, setQtd] = useState(1);
     const [valorUni, setValorUni] = useState(20);
 
@@ -15,10 +18,8 @@ export const ItemCarrinho = (props) => {
     };
 
     const incrementarQuantidade = () => {
-
         setQtd(qtd + 1);
         setValorUni(valorUni + 20);
-
     };
 
 
@@ -29,28 +30,32 @@ export const ItemCarrinho = (props) => {
                 style={{ width: 70, height: 100 }}
             />
             <View style={styles.containerInfoLivro}>
-                <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{props.nomeLivro}</Text>
-                <Text style={{ fontSize: 17 }}>{props.nomeAutor}</Text>
-                <Text style={{ fontSize: 17 }}>{props.editora}</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{props.nomeLivro}</Text>
+                <Text style={{ fontSize: 13 }}>{props.nomeAutor}</Text>
+                <Text style={{ fontSize: 13 }}>{props.editora}</Text>
             </View>
             <View>
                 <View style={styles.containerPrecoLivro}>
-                    <View style={styles.btnQtd}>
-                        <TouchableOpacity onPress={decrementarQuantidade}>
-                            <Text style={styles.txtBtnQtd}>-</Text>
+
+                    <View style={styles.qntButton}>
+                        <TouchableOpacity onPress={() => decrementarQuantidade()}>
+                            <Entypo name="minus" size={16} color="#fff" />
                         </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Text style={styles.txtBtnQtd}>{qtd}</Text>
+
+                        <View>
+                            <Text style={{ color: "#fff" }}>{qtd}</Text>
+                        </View>
+
+                        <TouchableOpacity onPress={() => incrementarQuantidade()}>
+                            <Entypo name="plus" size={16} color="#fff" />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={incrementarQuantidade}>
-                            <Text style={styles.txtBtnQtd}>+</Text>
-                        </TouchableOpacity>
+
                     </View>
-                    <Text style={{ fontWeight: 'bold', fontSize: 17, marginBottom: 12 }}>
+                    <Text style={{ fontWeight: 'bold', fontSize: 13 }}>
                         R$ {valorUni},00
                     </Text>
                     <TouchableOpacity>
-                        <FontAwesome5 name="trash" size={20} color="#000" />
+                        <Foundation name="trash" size={22} color="black" />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -62,37 +67,37 @@ export const ItemCarrinho = (props) => {
 const styles = StyleSheet.create({
     containerLivroCarrinho: {
         flex: 1,
-        width: '95%',
-        marginRight: 'auto',
-        marginLeft: 'auto',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        gap: 10,
         alignItems: 'center',
         marginTop: 10,
         marginBottom: 10
     },
     containerInfoLivro: {
         flex: 2,
-        paddingLeft: 20
     },
     containerPrecoLivro: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'space-around'
     },
-    btnQtd: {
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: '#116a7b',
-        gap: 20,
-        borderRadius: 20,
-        padding: 5,
-        textAlign: 'center',
-        justifyContent: 'center'
-    },
     txtBtnQtd: {
         fontWeight: 'bold',
         color: '#fff',
-        fontSize: 15
+        fontSize: 15,
     },
+    textButton: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#fff',
+        width: '100%'
+    },
+    qntButton: {
+        backgroundColor: '#116a7b',
+        alignItems: 'center',
+        flexDirection: 'row',
+        padding: 5,
+        gap: 20,
+        borderRadius: 5
+    }
 })

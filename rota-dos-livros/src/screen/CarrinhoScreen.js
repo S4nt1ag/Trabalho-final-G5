@@ -1,14 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
-
 import { AxiosInstance } from '../api/AxiosInstance';
 import { DataContext } from '../context/DataContext';
 import { deleteAllCarrinho } from '../services/DataServices';
 import { useFocusEffect } from '@react-navigation/native';
-import * as SecureStore from 'expo-secure-store';
 import { getValueFor } from "../services/DataServices";
 import { ItemCarrinho } from '../components/ItemCarrinho';
+import { Foundation } from '@expo/vector-icons';
 
 export const CarrinhoScreen = () => {
     const [livros, setLivros] = useState([])
@@ -57,19 +55,24 @@ export const CarrinhoScreen = () => {
             getFavoritos();
         }, [])
     );
-    const handleQuantidadeChange = (qtd) => {
-        setQuantidadeItens(qtd);
-    };
+
     return (
         <View style={styles.container}>
             <View style={styles.containerInfo}>
                 <Text style={styles.txtCarrinho}>Carrinho</Text>
-                <View style={styles.qtd_lixeira}>
-                    <Text>{quantidadeItensCarrinho} livro(s)</Text>
-                    <TouchableOpacity onPress={removerCarrinho}>
-                        <FontAwesome5 name="trash" size={30} color="#000" />
-                    </TouchableOpacity>
-                </View>
+
+                {
+                    quantidadeItensCarrinho != 0 ? (
+                        <View style={styles.qtd_lixeira}>
+                            <Text>{quantidadeItensCarrinho} livro(s)</Text>
+                            <TouchableOpacity onPress={removerCarrinho}>
+                                <Foundation name="trash" size={25} color="black" />
+                            </TouchableOpacity>
+                        </View>
+                    ) : (
+                        <Text>Seu carrinho está vazio</Text>
+                    )
+                }
             </View>
             {isLoading ? (
                 <View style={styles.loadingContainer}>
@@ -80,7 +83,6 @@ export const CarrinhoScreen = () => {
                     <FlatList
                         horizontal={false}
                         showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={styles.teste}
                         data={livros}
                         renderItem={({ item }) => (
                             <ItemCarrinho
@@ -95,10 +97,17 @@ export const CarrinhoScreen = () => {
                     />
                 </View>
             )}
-            <View style={styles.containerTotal}>
-                <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Total</Text>
-                <Text>R$ {valorItensCarrinho},00</Text>
-            </View>
+            {
+                quantidadeItensCarrinho != 0 ? (
+                    <View style={styles.containerTotal}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Total</Text>
+                        <Text>R$ {valorItensCarrinho},00</Text>
+                    </View>
+                ) : (
+                    null
+                )
+            }
+
         </View>
     );
 };
@@ -106,47 +115,29 @@ export const CarrinhoScreen = () => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#C2DEDC',
-        flex: 1
+        flex: 1,
+        gap: 10,
+        padding: 30
     },
     containerInfo: {
-        flex: 1,
-        width: '95%',
-        marginRight: 'auto',
-        marginLeft: 'auto',
         justifyContent: 'center',
-        paddingTop: 20
+        gap: 10
     },
     txtCarrinho: {
-        fontSize: 30,
+        fontSize: 22,
         fontWeight: 'bold'
     },
     qtd_lixeira: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        height: 'auto'
     },
     containerLivros: {
         flex: 4,
-        borderBottomWidth: 2,
+        borderBottomWidth: 1,
         borderBottomColor: '#116a7b',
-        borderTopWidth: 2,
+        borderTopWidth: 1,
         borderTopColor: '#116a7b',
-        width: '95%',
-        marginRight: 'auto',
-        marginLeft: 'auto'
-    },
-    containerLivroCarrinho: {
-        flex: 1,
-        width: '95%',
-        marginRight: 'auto',
-        marginLeft: 'auto',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 10
     },
     containerInfoLivro: {
         flex: 2,

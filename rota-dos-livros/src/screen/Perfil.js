@@ -3,27 +3,32 @@ import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useContext } from 'react';
 import { DataContext } from '../context/DataContext';
+import { deleteItem } from '../services/DataServices'
 
 export function Perfil() {
 
     const navigation = useNavigation();
     const { dadosUsuario } = useContext(DataContext);
-    
+
     return (
         <View style={styles.container}>
-                <Ionicons name="person-circle" size={130} color="#1D1D1D" />
+            <Ionicons name="person-circle" size={130} color="#1D1D1D" />
 
-                <View style={styles.user}>
-                    <Text><Text style={{fontWeight: 'bold'}}>User: </Text>{dadosUsuario.nome}</Text>
-                    <Text><Text style={{fontWeight: 'bold'}}>Email: </Text>{dadosUsuario.email}</Text>
+            <View style={styles.user}>
+                <Text><Text style={{ fontWeight: 'bold' }}>User: </Text>{dadosUsuario.nome}</Text>
+                <Text><Text style={{ fontWeight: 'bold' }}>Email: </Text>{dadosUsuario.email}</Text>
+            </View>
+
+            <TouchableOpacity style={styles.button} onPress={() =>
+                {deleteItem('favoritos')
+                deleteItem('carrinho')
+                navigation.navigate('Login')}
+            }>
+                <View style={styles.buttonContent}>
+                    <Text style={{ color: "#fff", fontWeight: 'bold' }}>Logout</Text>
+                    <MaterialIcons name="logout" size={20} color="#fff" />
                 </View>
-
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
-                    <View style={styles.buttonContent}>
-                        <Text style={{color: "#fff", fontWeight: 'bold'}}>Logout</Text>
-                        <MaterialIcons name="logout" size={20} color="#fff" />
-                    </View>
-                </TouchableOpacity>
+            </TouchableOpacity>
         </View>
     )
 }
