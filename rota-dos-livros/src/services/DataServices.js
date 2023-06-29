@@ -67,7 +67,22 @@ async function getValueFor(key) {
     console.log('Erro ao recuperar dados 1' + error);
   }
 
-  return JSON.parse(result);
+  return result;
 }
+
+// const deleteId = async (key,value) => {
+
+//   let object = await SecureStore.getItemAsync(key);
+//   object = JSON.parse(object)
+//   console.log(object)
+
+//   if(object.includes(value)) {
+//     let i = object.indexOf(value)
+//     object.splice(i, 1)
+//     await SecureStore.setItemAsync(key, JSON.stringify(object));
+//   } else {
+//     console.log(false)
+//   }
+// }
 
 export { save, getValueFor, deleteItem, deleteAllFavoritos, saveCarrinho, deleteAllCarrinho };

@@ -1,73 +1,101 @@
-import { ScrollView } from "react-native";
-import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import React from 'react'
+import { Text, View, Image, StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import { Foundation } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import { deleteAllFavoritos } from '../services/DataServices';
+import { deleteAllFavoritos, deleteId } from '../services/DataServices';
+import { useEffect, useState } from "react";
+import { DataContext } from '../context/DataContext';
+import { AxiosInstance } from "../api/AxiosInstance";
+import { getValueFor } from "../services/DataServices";
+import { useContext } from "react";
+import { useFocusEffect } from '@react-navigation/native';
 
 export function Favoritos() {
+
+    const [livros, setLivros] = useState([])
+    const [isLoading, setLoading] = useState(true)
+    const { dadosUsuario } = useContext(DataContext)
+
+    const getFavoritos = async () => {
+        let fav = await getValueFor('favoritos')
+        let favs = fav != null ? JSON.parse(fav) : []
+
+        let listaFavoritos = []
+
+        for (let id of favs) {
+            listaFavoritos.push(await getLivro(id))
+        }
+
+        setLivros(listaFavoritos)
+        setLoading(false)
+    }
+
+    const getLivro = async (id) => {
+
+        try {
+            let response = await AxiosInstance.get(`/livros/${id}`, {
+                headers: { "Authorization": `Bearer ${dadosUsuario?.token}` }
+            })
+            return response.data
+        } catch {
+            console.log("Erro ao requisitar livro")
+        }
+    };
+
+    async function removerFavoritos() {
+        await deleteAllFavoritos()
+        getFavoritos()
+    }
+
+    useFocusEffect(
+        React.useCallback(() => {
+            getFavoritos();
+        }, [])
+    );
+
     return (
-        <ScrollView style={{ backgroundColor: "#C2DEDC" }}>
 
-            <View style={styles.container}>
+        <View style={styles.container}>
 
-                <View style={styles.header}>
-                    <Text style={styles.title}>Meus Favoritos</Text>
-
-                    <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-                        <Text>3 livro(s)</Text>
-                        <TouchableOpacity onPress={deleteAllFavoritos}>
-                            <Foundation name="trash" size={20} color="black" />
-                        </TouchableOpacity>
-                    </View>
+            <View style={styles.header}>
+                <Text style={styles.title}>Meus Favoritos</Text>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                    {
+                        livros.length != 0 ? (
+                            <Text>x iten(s)</Text>
+                        ) : (
+                            <Text>Sem favoritos</Text>
+                        )
+                    }
+                    <TouchableOpacity onPress={() => removerFavoritos()}>
+                        <Foundation name="trash" size={20} color="black" />
+                    </TouchableOpacity>
                 </View>
-
-                <View style={styles.favorite}>
-                    <Image style={styles.image} source={{ uri: "https://m.media-amazon.com/images/I/51feD87yuEL._SY344_BO1,204,203,200_QL70_ML2_.jpg" }}></Image>
-                    <View style={styles.bookInfo}>
-                        <Text style={styles.bookName}>1984</Text>
-                        <Text style={styles.bookAuthor}>Autor: George Orwell</Text>
-                    </View>
-                    <Entypo name="cross" size={24} color="#fff" style={{ alignSelf: 'flex-start' }} />
-                </View>
-
-                <View style={styles.favorite}>
-                    <Image style={styles.image} source={{ uri: "https://m.media-amazon.com/images/I/51feD87yuEL._SY344_BO1,204,203,200_QL70_ML2_.jpg" }}></Image>
-                    <View style={styles.bookInfo}>
-                        <Text style={styles.bookName}>1984</Text>
-                        <Text style={styles.bookAuthor}>Autor: George Orwell</Text>
-                    </View>
-                    <Entypo name="cross" size={24} color="#fff" style={{ alignSelf: 'flex-start' }} />
-                </View>
-
-                <View style={styles.favorite}>
-                    <Image style={styles.image} source={{ uri: "https://m.media-amazon.com/images/I/51feD87yuEL._SY344_BO1,204,203,200_QL70_ML2_.jpg" }}></Image>
-                    <View style={styles.bookInfo}>
-                        <Text style={styles.bookName}>1984</Text>
-                        <Text style={styles.bookAuthor}>Autor: George Orwell</Text>
-                    </View>
-                    <Entypo name="cross" size={24} color="#fff" style={{ alignSelf: 'flex-start' }} />
-                </View>
-
-                <View style={styles.favorite}>
-                    <Image style={styles.image} source={{ uri: "https://m.media-amazon.com/images/I/51feD87yuEL._SY344_BO1,204,203,200_QL70_ML2_.jpg" }}></Image>
-                    <View style={styles.bookInfo}>
-                        <Text style={styles.bookName}>1984</Text>
-                        <Text style={styles.bookAuthor}>Autor: George Orwell</Text>
-                    </View>
-                    <Entypo name="cross" size={24} color="#fff" style={{ alignSelf: 'flex-start' }} />
-                </View>
-
-                <View style={styles.favorite}>
-                    <Image style={styles.image} source={{ uri: "https://m.media-amazon.com/images/I/51feD87yuEL._SY344_BO1,204,203,200_QL70_ML2_.jpg" }}></Image>
-                    <View style={styles.bookInfo}>
-                        <Text style={styles.bookName}>1984</Text>
-                        <Text style={styles.bookAuthor}>Autor: George Orwell</Text>
-                    </View>
-                    <Entypo name="cross" size={24} color="#fff" style={{ alignSelf: 'flex-start' }} />
-                </View>
-
             </View>
-        </ScrollView>
+            {
+                isLoading ? (
+                    null
+                ) : (
+                    <FlatList
+                        contentContainerStyle={styles.list}
+                        horizontal={false}
+                        showsHorizontalScrollIndicator={false}
+                        data={livros}
+                        renderItem={({ item }) => (
+                            <View style={styles.favorite}>
+                                <Image style={styles.image} source={{ uri: `data:image/jpeg;base64,${item.img}` }}></Image>
+                                <View style={styles.bookInfo}>
+                                    <Text style={styles.bookName}>{item.nomeLivro}</Text>
+                                    <Text style={styles.bookAuthor}>{item.autorDTO.nomeAutor}</Text>
+                                </View>
+                                <TouchableOpacity><Entypo name="cross" size={24} color="#fff" style={{ alignSelf: 'flex-start' }} /></TouchableOpacity>
+                            </View>
+                        )}
+                    />
+                )
+            }
+
+        </View>
     )
 }
 
@@ -90,11 +118,11 @@ const styles = StyleSheet.create({
     },
     favorite: {
         backgroundColor: "#116A7B",
-        padding: 10,
         borderRadius: 5,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
+        padding: 10,
+        justifyContent: 'space-between',
+        alignItems: 'center'
     },
     bookName: {
         color: "#fff",
@@ -104,11 +132,16 @@ const styles = StyleSheet.create({
         color: "#fff"
     },
     image: {
-        width: 60,
-        height: 90,
+        width: 100,
+        height: 100,
         resizeMode: 'contain'
     },
     bookInfo: {
-        justifyContent: 'center'
+        justifyContent: 'center',
+        maxWidth: 100,
+        gap: 10
+    },
+    list: {
+        gap: 20
     }
 })
