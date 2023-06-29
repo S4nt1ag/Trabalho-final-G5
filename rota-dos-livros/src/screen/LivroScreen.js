@@ -31,7 +31,6 @@ const LivroScreen = ({ navigation, route }) => {
     console.log("id " + livreId)
 
     await saveCarrinho(key, value);
-    addToCart()
     console.log("value " + key + " " + value)
   };
 

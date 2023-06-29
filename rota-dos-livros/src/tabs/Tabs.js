@@ -10,6 +10,7 @@ import { Perfil } from '../screen/Perfil';
 const Tab = createBottomTabNavigator();
 
 export default function Tabs() {
+
     return (
         <Tab.Navigator
             initialRouteName="Livraria"
@@ -56,7 +57,7 @@ export default function Tabs() {
                 component={CarrinhoScreen}
                 options={{
                     tabBarIcon: ({ color, size }) => (
-                        <MaterialCommunityIcons name="cart" color={color} size={size} />
+                            <MaterialCommunityIcons name="cart" color={color} size={size} />
                     )
                 }}
             />

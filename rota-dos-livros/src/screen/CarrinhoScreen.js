@@ -1,13 +1,11 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { AxiosInstance } from '../api/AxiosInstance';
 import { DataContext } from '../context/DataContext';
 import { deleteAllCarrinho } from '../services/DataServices';
 import { useFocusEffect } from '@react-navigation/native';
-import { getValueFor, saveTotalQntd, deleteQntdTotal } from "../services/DataServices";
+import { getValueFor, deleteQntdTotal } from "../services/DataServices";
 import { ItemCarrinho } from '../components/ItemCarrinho';
-import { Foundation } from '@expo/vector-icons';
-import { CartContext } from '../context/CartContext';
 
 export const CarrinhoScreen = () => {
     const [livros, setLivros] = useState([])
@@ -15,7 +13,6 @@ export const CarrinhoScreen = () => {
     const { dadosUsuario } = useContext(DataContext)
     const [quantidadeItensCarrinho, setQuantidadeItensCarrinho] = useState(0);
     const [valorItensCarrinho, setValorItensCarrinho] = useState(0);
-    const { qntdCarrinho, setQntdCarrinho, getTotal } = useContext(CartContext)
 
 
     const getFavoritos = async () => {
@@ -53,10 +50,6 @@ export const CarrinhoScreen = () => {
         getFavoritos()
     }
 
-    useEffect(() => {
-        getTotal()
-    }, [])
-
     useFocusEffect(
         React.useCallback(() => {
             getFavoritos();
@@ -70,12 +63,7 @@ export const CarrinhoScreen = () => {
 
                 {
                     quantidadeItensCarrinho != 0 ? (
-                        <View style={styles.qtd_lixeira}>
-                            <Text>{qntdCarrinho} livro(s)</Text>
-                            <TouchableOpacity onPress={removerCarrinho}>
-                                <Foundation name="trash" size={25} color="black" />
-                            </TouchableOpacity>
-                        </View>
+                        null
                     ) : (
                         <Text>Seu carrinho está vazio</Text>
                     )
@@ -104,16 +92,6 @@ export const CarrinhoScreen = () => {
                     />
                 </View>
             )}
-            {
-                quantidadeItensCarrinho != 0 ? (
-                    <View style={styles.containerTotal}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Total</Text>
-                        <Text>R$ {qntdCarrinho*20},00</Text>
-                    </View>
-                ) : (
-                    null
-                )
-            }
 
         </View>
     );
